@@ -1,6 +1,8 @@
 import { ru } from './ru.js';
 import { en } from './en.js';
 
+const DARK_THEME = ['.keyboard-wrapper', '.key', '.func', '.color-theme', '.key:active', '.active', '.title', '.system', '.language', 'body'];
+
 const renderKeyboardWrapper = () => {
 	document.body.insertAdjacentHTML(
 		'afterbegin',
@@ -24,6 +26,49 @@ const renderKeyboardWrapper = () => {
 			</div>
 		</main>`,
 	);
+};
+
+const setColorTheme = () => {
+	const TOGGLER = document.querySelector('.toggler');
+	const TOGGLER_OFF = document.querySelector('.toggler-off');
+	const TOGGLER_ON = document.querySelector('.toggler-on');
+
+	if (localStorage.theme === 'light') {
+		DARK_THEME.forEach((item) => {
+			document.querySelectorAll(`${item}`).forEach((theme) => theme.classList.remove('dark-theme'));
+		});
+		TOGGLER.style.left = '2px';
+		TOGGLER_OFF.style.display = 'block';
+		TOGGLER_ON.style.display = 'none';
+	} else if (localStorage.theme === 'dark') {
+		DARK_THEME.forEach((item) => {
+			document.querySelectorAll(`${item}`).forEach((theme) => theme.classList.add('dark-theme'));
+		});
+		TOGGLER.style.left = '36px';
+		TOGGLER_OFF.style.display = 'none';
+		TOGGLER_ON.style.display = 'block';
+	}
+};
+
+const changeColorTheme = () => {
+	const TOGGLER = document.querySelector('.toggler');
+	const TOGGLER_OFF = document.querySelector('.toggler-off');
+	const TOGGLER_ON = document.querySelector('.toggler-on');
+
+	DARK_THEME.forEach((item) => {
+		document.querySelectorAll(`${item}`).forEach((theme) => theme.classList.toggle('dark-theme'));
+	});
+	if (localStorage.theme === 'dark') {
+		TOGGLER.style.left = '2px';
+		TOGGLER_OFF.style.display = 'block';
+		TOGGLER_ON.style.display = 'none';
+		localStorage.setItem('theme', 'light');
+	} else if (localStorage.theme === 'light') {
+		TOGGLER.style.left = '36px';
+		TOGGLER_OFF.style.display = 'none';
+		TOGGLER_ON.style.display = 'block';
+		localStorage.setItem('theme', 'dark');
+	}
 };
 
 const renderKeyboard = () => {
