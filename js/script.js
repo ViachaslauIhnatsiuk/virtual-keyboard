@@ -1,5 +1,5 @@
-import { ru } from './ru.js';
-import { en } from './en.js';
+import ru from './ru.js';
+import en from './en.js';
 
 import {
   renderKeyboardWrapper,
@@ -93,7 +93,7 @@ document.addEventListener('keydown', (e) => {
     } else if (localStorage.language === 'ru') {
       ru.forEach((item) => {
         if (item.code === e.code && capslock && !shift) {
-          if (e.code.length === 4 || e.code === 'Backquote' || e.code === 'BracketLeft' || e.code === 'BracketRight' || e.code === 'Semicolon' || e.code === 'Quote' || e.code === 'Comma' || e.code === 'Period') {
+          if (item.upperCapsValue === item.upperValue) {
             key = item.upperValue;
           } else {
             key = item.lowerValue;
@@ -101,7 +101,7 @@ document.addEventListener('keydown', (e) => {
         } else if (item.code === e.code && !capslock && shift) {
           key = item.upperValue;
         } else if (item.code === e.code && capslock && shift) {
-          if (e.code.length === 4 || e.code === 'Backquote' || e.code === 'BracketLeft' || e.code === 'BracketRight' || e.code === 'Semicolon' || e.code === 'Quote' || e.code === 'Comma' || e.code === 'Period') {
+          if (item.upperCapsValue === item.upperValue) {
             key = item.lowerValue;
           } else {
             key = item.upperValue;
