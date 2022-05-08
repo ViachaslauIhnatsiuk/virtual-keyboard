@@ -71,50 +71,6 @@ const changeColorTheme = () => {
 	}
 };
 
-const renderKeyboard = () => {
-	document.querySelector('.keyboard').innerHTML = '';
-	if (localStorage.language === 'ru') {
-		if (localStorage.theme === 'light') {
-			ru.forEach((item) => {
-				document.querySelector('.keyboard').insertAdjacentHTML(
-					'beforeend',
-					`<div class="${item.class}">${item.lowerValue}</div>`,
-				);
-			});
-		} else {
-			ru.forEach((item) => {
-				document.querySelector('.keyboard').insertAdjacentHTML(
-					'beforeend',
-					`<div class="${item.class} dark-theme">${item.lowerValue}</div>`,
-				);
-			});
-		}
-	} else if (localStorage.language === 'en') {
-		if (localStorage.theme === 'light') {
-			en.forEach((item) => {
-				document.querySelector('.keyboard').insertAdjacentHTML(
-					'beforeend',
-					`<div class="${item.class}">${item.lowerValue}</div>`,
-				);
-			});
-		} else {
-			en.forEach((item) => {
-				document.querySelector('.keyboard').insertAdjacentHTML(
-					'beforeend',
-					`<div class="${item.class} dark-theme">${item.lowerValue}</div>`,
-				);
-			});
-		}
-	}
-
-	document.querySelector('.capslock').insertAdjacentHTML(
-		'beforeend',
-		`<div class="indicator">
-		</div>`,
-	);
-
-};
-
 const addEventListenersToButtons = () => {
 	const OUTPUT = document.querySelector('.output');
 
@@ -198,6 +154,53 @@ const addEventListenersToButtons = () => {
 		OUTPUT.value = OUTPUT.textContent;
 		OUTPUT.setSelectionRange(position + 1, position + 1);
 	}));
+
+	document.querySelector('.color-theme').addEventListener('click', changeColorTheme);
+};
+
+const renderKeyboard = () => {
+	document.querySelector('.keyboard').innerHTML = '';
+	if (localStorage.language === 'ru') {
+		if (localStorage.theme === 'light') {
+			ru.forEach((item) => {
+				document.querySelector('.keyboard').insertAdjacentHTML(
+					'beforeend',
+					`<div class="${item.class}">${item.lowerValue}</div>`,
+				);
+			});
+		} else {
+			ru.forEach((item) => {
+				document.querySelector('.keyboard').insertAdjacentHTML(
+					'beforeend',
+					`<div class="${item.class} dark-theme">${item.lowerValue}</div>`,
+				);
+			});
+		}
+	} else if (localStorage.language === 'en') {
+		if (localStorage.theme === 'light') {
+			en.forEach((item) => {
+				document.querySelector('.keyboard').insertAdjacentHTML(
+					'beforeend',
+					`<div class="${item.class}">${item.lowerValue}</div>`,
+				);
+			});
+		} else {
+			en.forEach((item) => {
+				document.querySelector('.keyboard').insertAdjacentHTML(
+					'beforeend',
+					`<div class="${item.class} dark-theme">${item.lowerValue}</div>`,
+				);
+			});
+		}
+	}
+
+	document.querySelector('.capslock').insertAdjacentHTML(
+		'beforeend',
+		`<div class="indicator">
+		</div>`,
+	);
+
+	addEventListenersToButtons();
 };
 
 const renderCapslockKeys = () => {
