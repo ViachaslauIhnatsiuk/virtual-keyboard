@@ -200,6 +200,102 @@ const addEventListenersToButtons = () => {
 	}));
 };
 
+const renderCapslockKeys = () => {
+	document.querySelectorAll('.key').forEach((letter) => {
+		if (localStorage.language === 'ru') {
+			ru.forEach((item) => {
+				if (item.lowerValue === letter.textContent) {
+					letter.textContent = item.upperCapsValue;
+				} else if (item.upperValue === letter.textContent) {
+					letter.textContent = item.lowerValue;
+				}
+			});
+		} else {
+			en.forEach((item) => {
+				if (item.lowerValue === letter.textContent) {
+					letter.textContent = item.upperCapsValue;
+				} else if (item.upperValue === letter.textContent) {
+					letter.textContent = item.lowerValue;
+				}
+			});
+		}
+	});
+
+	document.querySelector('.indicator').classList.toggle('on');
+};
+
+const renderShiftLowerLetterKeys = () => {
+	document.querySelectorAll('.letter').forEach((letter) => {
+		if (localStorage.language === 'ru') {
+			ru.forEach((item) => {
+				if (letter.textContent === item.upperValue) {
+					letter.textContent = item.lowerValue;
+				}
+			});
+		} else {
+			en.forEach((item) => {
+				if (letter.textContent === item.upperValue) {
+					letter.textContent = item.lowerValue;
+				}
+			});
+		}
+	});
+};
+
+const renderShiftLowerNonLetterKeys = () => {
+	document.querySelectorAll('.no-letter').forEach((letter) => {
+		if (localStorage.language === 'ru') {
+			ru.forEach((item) => {
+				if (letter.textContent === item.upperValue) {
+					letter.textContent = item.lowerValue;
+				}
+			});
+		} else {
+			en.forEach((item) => {
+				if (letter.textContent === item.upperValue) {
+					letter.textContent = item.lowerValue;
+				}
+			});
+		}
+	});
+};
+
+const renderShiftUpperLetterKeys = () => {
+	document.querySelectorAll('.letter').forEach((letter) => {
+		if (localStorage.language === 'ru') {
+			ru.forEach((item) => {
+				if (letter.textContent === item.lowerValue) {
+					letter.textContent = item.upperValue;
+				}
+			});
+		} else {
+			en.forEach((item) => {
+				if (letter.textContent === item.lowerValue) {
+					letter.textContent = item.upperValue;
+				}
+			});
+		}
+	});
+};
+
+const renderShiftUpperNonLetterKeys = () => {
+	document.querySelectorAll('.no-letter').forEach((letter) => {
+		if (localStorage.language === 'ru') {
+			ru.forEach((item) => {
+				if (letter.textContent === item.lowerValue) {
+					letter.textContent = item.upperValue;
+				}
+			});
+		} else {
+			en.forEach((item) => {
+				if (letter.textContent === item.lowerValue) {
+					letter.textContent = item.upperValue;
+				}
+			});
+		}
+	});
+};
+
 const updateStorageAndLayout = () => {
 	document.querySelector('.keyboard').innerHTML = '';
 
@@ -340,6 +436,11 @@ const changeLanguage = (...codes) => {
 export {
 	renderKeyboardWrapper,
 	renderKeyboard,
+	renderCapslockKeys,
+	renderShiftLowerLetterKeys,
+	renderShiftLowerNonLetterKeys,
+	renderShiftUpperLetterKeys,
+	renderShiftUpperNonLetterKeys,
 	changeLanguage,
 	setColorTheme,
 };
