@@ -69,3 +69,21 @@ const renderKeyboard = () => {
 	);
 
 };
+
+const addEventListenersToButtons = () => {
+	const OUTPUT = document.querySelector('.output');
+
+	document.querySelectorAll('.key, .func').forEach((item) => item.addEventListener('mousedown', (e) => e.preventDefault()));
+
+	document.querySelectorAll('.key').forEach((item) => item.addEventListener('click', (e) => {
+		const position = OUTPUT.selectionStart;
+		if (OUTPUT.selectionEnd - OUTPUT.selectionStart > 0) {
+			OUTPUT.textContent = OUTPUT.textContent.slice(0, OUTPUT.selectionStart) + e.target.textContent + OUTPUT.textContent.slice(OUTPUT.selectionEnd);
+		} else {
+			OUTPUT.textContent = OUTPUT.textContent.slice(0, position) + e.target.textContent + OUTPUT.textContent.slice(position);
+		}
+		OUTPUT.value = OUTPUT.textContent;
+		OUTPUT.setSelectionRange(position + 1, position + 1);
+	}));
+
+};
