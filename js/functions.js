@@ -86,4 +86,71 @@ const addEventListenersToButtons = () => {
 		OUTPUT.setSelectionRange(position + 1, position + 1);
 	}));
 
+	document.querySelector('.enter').addEventListener('click', () => {
+		const position = OUTPUT.selectionStart;
+		if (OUTPUT.selectionEnd - OUTPUT.selectionStart >= 0) {
+			OUTPUT.textContent = `${OUTPUT.textContent.slice(0, OUTPUT.selectionStart)}${'\n'}${OUTPUT.textContent.slice(OUTPUT.selectionEnd)}`;
+		} else if (OUTPUT.selectionEnd === OUTPUT.selectionStart && position > 0) {
+			OUTPUT.textContent = `${OUTPUT.textContent.slice(0, position)}${'\n'}${OUTPUT.textContent.slice(position)}`;
+		}
+		OUTPUT.value = OUTPUT.textContent;
+		OUTPUT.setSelectionRange(position + 1, position + 1);
+	});
+
+	document.querySelector('.tab').addEventListener('click', () => {
+		const position = OUTPUT.selectionStart;
+		if (OUTPUT.selectionEnd - OUTPUT.selectionStart > 0) {
+			OUTPUT.textContent = `${OUTPUT.textContent.slice(0, OUTPUT.selectionStart)}${'    '}${OUTPUT.textContent.slice(OUTPUT.selectionEnd)}`;
+		} else {
+			OUTPUT.textContent = `${OUTPUT.textContent.slice(0, position)}${'    '}${OUTPUT.textContent.slice(position)}`;
+		}
+		OUTPUT.value = OUTPUT.textContent;
+		OUTPUT.setSelectionRange(position + 4, position + 4);
+	});
+
+	document.querySelector('.space').addEventListener('click', () => {
+		const position = OUTPUT.selectionStart;
+		if (OUTPUT.selectionEnd - OUTPUT.selectionStart > 0) {
+			OUTPUT.textContent = `${OUTPUT.textContent.slice(0, OUTPUT.selectionStart)}${' '}${OUTPUT.textContent.slice(OUTPUT.selectionEnd)}`;
+		} else {
+			OUTPUT.textContent = `${OUTPUT.textContent.slice(0, position)}${' '}${OUTPUT.textContent.slice(position)}`;
+		}
+		OUTPUT.value = OUTPUT.textContent;
+		OUTPUT.setSelectionRange(position + 1, position + 1);
+	});
+
+	document.querySelector('.backspace').addEventListener('click', () => {
+		const position = OUTPUT.selectionStart;
+		if (OUTPUT.selectionEnd - OUTPUT.selectionStart > 0) {
+			OUTPUT.textContent = OUTPUT.textContent.slice(0, OUTPUT.selectionStart) + OUTPUT.textContent.slice(OUTPUT.selectionEnd);
+			OUTPUT.value = OUTPUT.textContent;
+			OUTPUT.setSelectionRange(position, position);
+		} else if (OUTPUT.selectionEnd === OUTPUT.selectionStart && position > 0) {
+			OUTPUT.textContent = OUTPUT.textContent.slice(0, position - 1) + OUTPUT.textContent.slice(position);
+			OUTPUT.value = OUTPUT.textContent;
+			OUTPUT.setSelectionRange(position - 1, position - 1);
+		}
+	});
+
+	document.querySelector('.delete').addEventListener('click', () => {
+		const position = OUTPUT.selectionStart;
+		if (OUTPUT.selectionEnd - OUTPUT.selectionStart > 0) {
+			OUTPUT.textContent = OUTPUT.textContent.slice(0, OUTPUT.selectionStart) + OUTPUT.textContent.slice(OUTPUT.selectionEnd);
+		} else {
+			OUTPUT.textContent = OUTPUT.textContent.slice(0, position) + OUTPUT.textContent.slice(position + 1);
+		}
+		OUTPUT.value = OUTPUT.textContent;
+		OUTPUT.setSelectionRange(position, position);
+	});
+
+	document.querySelectorAll('.arrowleft, .arrowright, .arrowup, .arrowdown').forEach((item) => item.addEventListener('click', (e) => {
+		const position = OUTPUT.selectionStart;
+		if (OUTPUT.selectionEnd - OUTPUT.selectionStart > 0) {
+			OUTPUT.textContent = OUTPUT.textContent.slice(0, OUTPUT.selectionStart) + e.target.textContent + OUTPUT.textContent.slice(OUTPUT.selectionEnd);
+		} else {
+			OUTPUT.textContent = OUTPUT.textContent.slice(0, position) + e.target.textContent + OUTPUT.textContent.slice(position);
+		}
+		OUTPUT.value = OUTPUT.textContent;
+		OUTPUT.setSelectionRange(position + 1, position + 1);
+	}));
 };
