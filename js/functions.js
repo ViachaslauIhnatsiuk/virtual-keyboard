@@ -199,3 +199,147 @@ const addEventListenersToButtons = () => {
 		OUTPUT.setSelectionRange(position + 1, position + 1);
 	}));
 };
+
+const updateStorageAndLayout = () => {
+	document.querySelector('.keyboard').innerHTML = '';
+
+	if (localStorage.language === 'ru') {
+		localStorage.setItem('language', 'en');
+
+		if (localStorage.theme === 'light') {
+			if (localStorage.capslock === 'off') {
+				en.forEach((item) => {
+					document.querySelector('.keyboard').insertAdjacentHTML(
+						'beforeend',
+						`<div class="${item.class}">${item.lowerValue}</div>`,
+					);
+				});
+				document.querySelector('.capslock').insertAdjacentHTML(
+					'beforeend',
+					`<div class="indicator">
+					</div>`,
+				);
+			} else {
+				en.forEach((item) => {
+					document.querySelector('.keyboard').insertAdjacentHTML(
+						'beforeend',
+						`<div class="${item.class}">${item.upperCapsValue}</div>`,
+					);
+				});
+				document.querySelector('.capslock').insertAdjacentHTML(
+					'beforeend',
+					`<div class="indicator on">
+					</div>`,
+				);
+			}
+		} else if (localStorage.theme === 'dark') {
+			if (localStorage.capslock === 'off') {
+				en.forEach((item) => {
+					document.querySelector('.keyboard').insertAdjacentHTML(
+						'beforeend',
+						`<div class="${item.class} dark-theme">${item.lowerValue}</div>`,
+					);
+				});
+				document.querySelector('.capslock').insertAdjacentHTML(
+					'beforeend',
+					`<div class="indicator">
+					</div>`,
+				);
+			} else {
+				en.forEach((item) => {
+					document.querySelector('.keyboard').insertAdjacentHTML(
+						'beforeend',
+						`<div class="${item.class} dark-theme">${item.upperCapsValue}</div>`,
+					);
+				});
+				document.querySelector('.capslock').insertAdjacentHTML(
+					'beforeend',
+					`<div class="indicator on">
+					</div>`,
+				);
+			}
+		}
+	} else if (localStorage.language === 'en') {
+		localStorage.setItem('language', 'ru');
+
+		if (localStorage.theme === 'light') {
+			if (localStorage.capslock === 'off') {
+				ru.forEach((item) => {
+					document.querySelector('.keyboard').insertAdjacentHTML(
+						'beforeend',
+						`<div class="${item.class}">${item.lowerValue}</div>`,
+					);
+				});
+				document.querySelector('.capslock').insertAdjacentHTML(
+					'beforeend',
+					`<div class="indicator">
+					</div>`,
+				);
+			} else {
+				ru.forEach((item) => {
+					document.querySelector('.keyboard').insertAdjacentHTML(
+						'beforeend',
+						`<div class="${item.class}">${item.upperCapsValue}</div>`,
+					);
+				});
+				document.querySelector('.capslock').insertAdjacentHTML(
+					'beforeend',
+					`<div class="indicator on">
+					</div>`,
+				);
+			}
+		} else if (localStorage.theme === 'dark') {
+			if (localStorage.capslock === 'off') {
+				ru.forEach((item) => {
+					document.querySelector('.keyboard').insertAdjacentHTML(
+						'beforeend',
+						`<div class="${item.class} dark-theme">${item.lowerValue}</div>`,
+					);
+				});
+				document.querySelector('.capslock').insertAdjacentHTML(
+					'beforeend',
+					`<div class="indicator">
+					</div>`,
+				);
+			} else {
+				ru.forEach((item) => {
+					document.querySelector('.keyboard').insertAdjacentHTML(
+						'beforeend',
+						`<div class="${item.class} dark-theme">${item.upperCapsValue}</div>`,
+					);
+				});
+				document.querySelector('.capslock').insertAdjacentHTML(
+					'beforeend',
+					`<div class="indicator on">
+					</div>`,
+				);
+			}
+		}
+	}
+
+	addEventListenersToButtons();
+};
+
+const changeLanguage = (...codes) => {
+	const pressed = new Set();
+
+	document.addEventListener('keydown', (e) => {
+		pressed.add(e.code);
+		for (const code of codes) {
+			if (!pressed.has(code)) return;
+		}
+		updateStorageAndLayout();
+		pressed.clear();
+	});
+
+	document.addEventListener('keyup', (e) => {
+		pressed.delete(e.code);
+	});
+};
+
+export {
+	renderKeyboardWrapper,
+	renderKeyboard,
+	changeLanguage,
+	setColorTheme,
+};
